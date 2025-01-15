@@ -15,7 +15,7 @@ After exploring the syntax I will probably build some simple games, and then bui
 
 ## Getting to Know the Language
 - [x] Objects, Classes, Interfaces, Packages, and Inheritance: Introduction to object-oriented programming.
-- [ ] Java Language Basics: Understanding Java language basics.
+- [x] Java Language Basics: Understanding Java language basics.
 - [ ] Classes and Objects: Define classes, member variables, methods, and constructors.
 - [ ] Using Record to Model Immutable Data: Model immutable data with records.
 - [ ] Numbers and Strings: Work with numbers, characters, and strings.
