@@ -1,24 +1,32 @@
 package main;
 
 import entity.Player;
+import tile.TileManager;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
     final int originalTitleSize = 16; //16x16 tile
     final int scale = 3;
 
-    final public int tileSize = originalTitleSize * scale; // 48x48 tile
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol;
-    final int screenHeight = tileSize * maxScreenRow;
+    public final int tileSize = originalTitleSize * scale; // 48x48 tile
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
 
     final int FPS = 60;
 
+    TileManager tileManager = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
@@ -73,11 +81,24 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
     }
 
+    public BufferedImage getImage(String path) {
+        try {
+            return ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(path)));
+        } catch (IOException e) {
+            Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
+
+        tileManager.draw(g2);
+
         player.draw(g2);
+
         g2.dispose();
     }
 }

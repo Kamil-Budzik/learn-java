@@ -3,13 +3,8 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Player extends Entity {
     GamePanel gp;
@@ -31,25 +26,20 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        try {
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/boy_up_1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/boy_up_2.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/boy_down_1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/boy_down_2.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/boy_left_1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/boy_left_2.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/boy_right_1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/boy_right_2.png")));
-
-        } catch (IOException e) {
-            Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, e);
-        }
+        up1 = gp.getImage("player/boy_up_1.png");
+        up2 = gp.getImage("player/boy_up_2.png");
+        down1 = gp.getImage("player/boy_down_1.png");
+        down2 = gp.getImage("player/boy_down_2.png");
+        left1 = gp.getImage("player/boy_left_1.png");
+        left2 = gp.getImage("player/boy_left_2.png");
+        right1 = gp.getImage("player/boy_right_1.png");
+        right2 = gp.getImage("player/boy_right_2.png");
     }
 
     public void update() {
 
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-            if(keyH.upPressed) {
+            if (keyH.upPressed) {
                 direction = "up";
                 y -= speed;
             } else if (keyH.downPressed) {
@@ -64,7 +54,7 @@ public class Player extends Entity {
             }
 
             spriteCounter++;
-            if(spriteCounter > 12) {
+            if (spriteCounter > 12) {
                 spriteCounter = 0;
                 spriteNum = (spriteNum == 1) ? 2 : 1;
             }
@@ -77,7 +67,7 @@ public class Player extends Entity {
 //        g2.setColor(Color.white);
 //        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
         BufferedImage image = null;
-        switch(direction) {
+        switch (direction) {
             case "up":
                 if (spriteNum == 2) {
                     image = up1;
